@@ -37,6 +37,20 @@ Entry.prototype.countConsonants = function(body) {
   return consonantsTotal;
 }
 
+Entry.prototype.getTeaser = function(body) {
+  var firstSentence = body.split('.').shift();
+  var firstSentenceArray = firstSentence.split(' ');
+  var firstEight = body.split(' ').slice(0, 8).join(' ');
+  var firstSentenceLength = firstSentenceArray.length;
+  console.log(firstSentenceLength);
+
+  if (firstSentenceLength > 8) {
+    return firstEight;
+  } else {
+    return firstSentence;
+  }
+}
+
 //Front End
 $(document).ready(function() {
   $('#input').submit(function(event) {
@@ -48,7 +62,10 @@ $(document).ready(function() {
     var wordTotal = newEntry.wordCount(body);
     var vowelCount = newEntry.countVowels(body);
     var consonantCount = newEntry.countConsonants(body);
+    var teaser = newEntry.getTeaser(body);
 
-    $('#output').append('<h3>' + title + '</h3><p>' + body + '</p><h3>' + "Word count: " + wordTotal + '</h3><h3>' + "The total of vowels used in the body is " + vowelCount + '</h3><h3>' + "The total of consonants used in the body is " + consonantCount + '</h3>');
+    $('#output').append('<h3>' + title + '</h3><p>' + teaser + '</p><h3>' + "Word count: " + wordTotal + '</h3><h3>' + "The total of vowels used in the body is " + vowelCount + '</h3><h3>' + "The total of consonants used in the body is " + consonantCount + '</h3>');
+
+    console.log(teaser);
   });
 });
